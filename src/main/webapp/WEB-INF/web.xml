@@ -1,0 +1,58 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+    <welcome-file-list>
+        <welcome-file>/register.jsp</welcome-file>
+    </welcome-file-list>
+
+
+    <servlet>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <servlet-class>com.epam.webdemoapp.servlets.WelcomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <url-pattern>/welcome</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.epam.webdemoapp.servlets.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ErrorPage</servlet-name>
+        <jsp-file>/error.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ErrorPage</servlet-name>
+        <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>ValidationFilter</filter-name>
+        <filter-class>com.epam.webdemoapp.filters.ValidationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ValidationFilter</filter-name>
+        <servlet-name> RegisterServlet</servlet-name>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>PasswordValidationFilter</filter-name>
+        <filter-class>com.epam.webdemoapp.filters.PasswordValidationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PasswordValidationFilter</filter-name>
+        <servlet-name> RegisterServlet</servlet-name>
+    </filter-mapping>
+
+
+</web-app>
