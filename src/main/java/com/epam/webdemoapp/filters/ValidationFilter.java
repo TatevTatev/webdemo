@@ -15,13 +15,7 @@ public class ValidationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String username = servletRequest.getParameter("username");
-        if (username.length() > 3) {
-            filterChain.doFilter(servletRequest, servletResponse);
-        } else {
-            HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-            httpServletResponse.sendRedirect("/webdemo_war/error.jsp");
-        }
+
     }
 
     @Override

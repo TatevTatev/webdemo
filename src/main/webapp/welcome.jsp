@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.epam.webdemoapp.models.User" %><%--
   Created by IntelliJ IDEA.
   User: Lenovo
   Date: 09.10.2023
@@ -8,10 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>My first web page</title>
+    <title>My page</title>
 </head>
 <body>
-<h1>Welcome dear user
-    <%=request.getAttribute("username")%></h1>
+<h1>Welcome dear <%=((User)session.getAttribute("user")).getLastName()%></h1>
 </body>
 </html>

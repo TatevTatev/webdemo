@@ -29,11 +29,13 @@ public class DBConnectionProvider {
 
     private void loadProperties() throws IOException {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("C:/Users/Lenovo/IdeaProjects/webdemo/src/main/resources/db-config.properties"));
+        properties.load(new FileInputStream(
+                "C:\\Users\\Lenovo\\IdeaProjects\\webdemo\\src\\main\\resources\\db-config.properties"));
+        dbDriverName = properties.getProperty("db.source.driverClass");
         dbUrl = properties.getProperty("db.source.url");
         dbUsername = properties.getProperty("db.source.username");
         dbPassword = properties.getProperty("db.source.password");
-        dbDriverName = properties.getProperty("db.source.driverClass");
+
 
 
     }

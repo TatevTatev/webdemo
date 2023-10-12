@@ -1,5 +1,8 @@
 package com.epam.webdemoapp.servlets;
 
+import com.epam.webdemoapp.manager.UserManager;
+import com.epam.webdemoapp.models.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -7,15 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class WelcomeServlet extends HttpServlet {
-    @Override
-    public void init() throws ServletException {
-        System.out.println("....init" );
-    }
+   UserManager userManager=new UserManager();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        req.setAttribute("username",username);
-        req.getRequestDispatcher("/welcome.jsp").forward(req,resp);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+
+        User user = userManager.getUserByEmailAndPassword(email, password);
+
+        if (user==null){
+            req.setAttribute("emailAndPasswordCheck", "Your email or password is wrong");
+           req.getRequestDispatcher("/login.jsp").forward(req,resp);
+        }else {
+            req.getSession().setAttribute("user",user);
+            if (user.getUserRole().name().equals("USER")){
+            resp.sendRedirect("/webdemo_war/welcome.jsp");
+            }else resp.sendRedirect("/webdemo_war/adminwelcome.jsp");
+        }
+
+
+
     }
 }
