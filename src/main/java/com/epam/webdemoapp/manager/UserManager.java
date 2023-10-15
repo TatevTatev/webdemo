@@ -1,10 +1,13 @@
 package com.epam.webdemoapp.manager;
 
 import com.epam.webdemoapp.db.DBConnectionProvider;
+import com.epam.webdemoapp.models.Book;
 import com.epam.webdemoapp.models.User;
 import com.epam.webdemoapp.models.UserRole;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserManager {
     private Connection connection = DBConnectionProvider.getInstance().getConnection();
@@ -42,6 +45,68 @@ public class UserManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public List<User> getAll() {
+        List<User> users = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement
+                    ("SELECT * FROM user;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                User user=new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setLastName(resultSet.getString("last_name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setUserRole( UserRole.valueOf(resultSet.getString("user_role")));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+    public User getById(Integer id) {
+        connection = DBConnectionProvider.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement
+                    ("SELECT * FROM user where id=?");
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setLastName(resultSet.getString("last_name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setUserRole(UserRole.valueOf(resultSet.getString("user_role")));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public void update(User user) {
+        connection = DBConnectionProvider.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET name=?, last_name=?, email=? where id=?;");
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setInt(4, user.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

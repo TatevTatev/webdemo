@@ -45,6 +45,30 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddBookServlet</servlet-name>
+        <servlet-class>com.epam.webdemoapp.servlets.AddBookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddBookServlet</servlet-name>
+        <url-pattern>/addbook</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>com.epam.webdemoapp.servlets.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AssignServlet</servlet-name>
+        <servlet-class>com.epam.webdemoapp.servlets.AssignServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AssignServlet</servlet-name>
+        <url-pattern>/assign</url-pattern>
+    </servlet-mapping>
 
 
 

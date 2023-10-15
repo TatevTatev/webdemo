@@ -18,7 +18,7 @@
     <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
-        <version>2.5</version>
+        <version>2.3</version>
         <scope>provided</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
@@ -26,6 +26,11 @@
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>8.0.28</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-core</artifactId>
+        <version>9.0.60</version>
     </dependency>
 
 </dependencies>

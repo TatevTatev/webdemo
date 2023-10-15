@@ -2,6 +2,7 @@ package com.epam.webdemoapp.servlets;
 
 import com.epam.webdemoapp.manager.UserManager;
 import com.epam.webdemoapp.models.User;
+import com.epam.webdemoapp.models.UserRole;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,9 +25,13 @@ public class WelcomeServlet extends HttpServlet {
            req.getRequestDispatcher("/login.jsp").forward(req,resp);
         }else {
             req.getSession().setAttribute("user",user);
-            if (user.getUserRole().name().equals("USER")){
+            if (user.getUserRole()== UserRole.USER){
             resp.sendRedirect("/webdemo_war/welcome.jsp");
-            }else resp.sendRedirect("/webdemo_war/adminwelcome.jsp");
+            }
+            if (user.getUserRole()== UserRole.ADMIN){
+                resp.sendRedirect("/webdemo_war/admin");
+            }
+
         }
 
 
