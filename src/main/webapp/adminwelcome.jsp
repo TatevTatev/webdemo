@@ -88,6 +88,20 @@
             <input type="submit" value="Assign">
 
 </div>
+<br>
+        <br>
+
+
+        <ul>
+            <li><a href="/">Login Page</a>
+            </li>
+            <li><a href="/webdemo_war/users">All Users</a>
+            </li>
+            <li><a href="/">Show all books</a>
+            </li>
+            <li><a href="/">Show assigned books</a>
+            </li>
+        </ul>
     </form>
 <div class="text">
 

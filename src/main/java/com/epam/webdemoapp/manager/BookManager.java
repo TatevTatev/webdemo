@@ -116,4 +116,18 @@ public class BookManager {
     }
 
 
+    public void unassignBook(Book book) {
+        PreparedStatement preparedStatement= null;
+        try {
+            preparedStatement = connection.prepareStatement
+                    ("update book  set user_id= null where book_name=? AND author=?");
+                preparedStatement.setString(1,book.getBookName());
+                preparedStatement.setString(2,book.getAuthor());
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+    }
 }
