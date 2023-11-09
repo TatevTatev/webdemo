@@ -1,13 +1,15 @@
 package com.epam.webdemoapp.db;
+import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+@Component
 public class DBConnectionProvider {
     private String dbUrl;
     private String dbUsername;
@@ -35,7 +37,6 @@ public class DBConnectionProvider {
         dbUrl = properties.getProperty("db.source.url");
         dbUsername = properties.getProperty("db.source.username");
         dbPassword = properties.getProperty("db.source.password");
-
 
 
     }

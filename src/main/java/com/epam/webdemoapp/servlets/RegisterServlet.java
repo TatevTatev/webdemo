@@ -3,6 +3,7 @@ package com.epam.webdemoapp.servlets;
 import com.epam.webdemoapp.manager.UserManager;
 import com.epam.webdemoapp.models.User;
 import com.epam.webdemoapp.models.UserRole;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+@Component
 public class RegisterServlet extends HttpServlet {
     UserManager userManager=new UserManager();
     @Override

@@ -2,6 +2,7 @@ package com.epam.webdemoapp.servlets;
 
 import com.epam.webdemoapp.manager.BookManager;
 import com.epam.webdemoapp.models.Book;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Component
 public class AddBookServlet extends HttpServlet {
     BookManager bookManager = new BookManager();
 

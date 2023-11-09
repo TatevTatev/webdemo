@@ -1,18 +1,25 @@
 package com.epam.webdemoapp.manager;
 
 import com.epam.webdemoapp.db.DBConnectionProvider;
-import com.epam.webdemoapp.models.Book;
 import com.epam.webdemoapp.models.User;
 import com.epam.webdemoapp.models.UserRole;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("userManager")
 public class UserManager {
-    private Connection connection = DBConnectionProvider.getInstance().getConnection();
+
+    @Autowired
+    private DBConnectionProvider dbConnectionProvider;
+    private Connection connection;
+
 
     public void add(User user) throws SQLException {
+        connection=dbConnectionProvider.getConnection();
         String sql = "INSERT INTO user(name,last_name,email,password,user_role) VALUES (?,?,?,?,?);";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, user.getName());
@@ -24,6 +31,7 @@ public class UserManager {
     }
 
     public User getUserByEmailAndPassword(String email, String password) {
+        connection=dbConnectionProvider.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
                     ("SELECT * FROM user where email=? AND password=?");
@@ -49,6 +57,7 @@ public class UserManager {
 
 
     public List<User> getAll() {
+        connection=dbConnectionProvider.getConnection();
         List<User> users = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
@@ -71,6 +80,7 @@ public class UserManager {
         return users;
     }
     public User getById(Integer id) {
+        connection=dbConnectionProvider.getConnection();
         connection = DBConnectionProvider.getInstance().getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
@@ -95,6 +105,7 @@ public class UserManager {
         return null;
     }
     public void update(User user) {
+        connection=dbConnectionProvider.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
                     ("UPDATE user SET name=?, last_name=?, email=? where id=?;");
@@ -110,6 +121,7 @@ public class UserManager {
     }
 
     public void delete(Integer id) {
+        connection=dbConnectionProvider.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
                     ("DELETE FROM user where id=?;");
@@ -120,5 +132,6 @@ public class UserManager {
             e.printStackTrace();
         }
     }
+
 
 }

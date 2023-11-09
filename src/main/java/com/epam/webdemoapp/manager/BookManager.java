@@ -2,6 +2,8 @@ package com.epam.webdemoapp.manager;
 
 import com.epam.webdemoapp.db.DBConnectionProvider;
 import com.epam.webdemoapp.models.Book;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,28 +12,31 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("bookManager")
 public class BookManager {
-    private Connection connection = DBConnectionProvider.getInstance().getConnection();
 
 
+    @Autowired
+    private DBConnectionProvider dbConnectionProvider;
+    private Connection connection;
 
 
+    public void addBook(Book book) {
+        connection = dbConnectionProvider.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement
+                    ("INSERT INTO book(book_name, author) VALUES(?,?);");
+            preparedStatement.setString(1, book.getBookName());
+            preparedStatement.setString(2, book.getAuthor());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-
-    public void addBook(Book book){
-
-    try {
-        PreparedStatement preparedStatement = connection.prepareStatement
-                ("INSERT INTO book(book_name, author) VALUES(?,?);");
-        preparedStatement.setString(1, book.getBookName());
-        preparedStatement.setString(2, book.getAuthor());
-        preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
     }
 
-}
     public List<Book> getAll() {
+        connection = dbConnectionProvider.getConnection();
         List<Book> books = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
@@ -53,6 +58,7 @@ public class BookManager {
     }
 
     public List<Book> getAllUnassignedBooks() {
+        connection = dbConnectionProvider.getConnection();
         List<Book> books = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
@@ -74,6 +80,7 @@ public class BookManager {
     }
 
     public Book getById(Integer id) {
+        connection = dbConnectionProvider.getConnection();
         connection = DBConnectionProvider.getInstance().getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement
@@ -98,6 +105,7 @@ public class BookManager {
 
 
     public void update(Book book) {
+        connection = dbConnectionProvider.getConnection();
         if (book != null) {
             connection = DBConnectionProvider.getInstance().getConnection();
             try {
@@ -117,16 +125,17 @@ public class BookManager {
 
 
     public void unassignBook(Book book) {
-        PreparedStatement preparedStatement= null;
+        connection = dbConnectionProvider.getConnection();
+        PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement
                     ("update book  set user_id= null where book_name=? AND author=?");
-                preparedStatement.setString(1,book.getBookName());
-                preparedStatement.setString(2,book.getAuthor());
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            preparedStatement.setString(1, book.getBookName());
+            preparedStatement.setString(2, book.getAuthor());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
     }
